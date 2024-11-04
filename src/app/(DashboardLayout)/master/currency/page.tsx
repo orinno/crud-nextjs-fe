@@ -1,8 +1,3 @@
-/** eslint-disable lines-around-comment */
-"use client";
-
-import { useMemo, useState } from "react";
-import DialogUnits from "@/app/views/master/units/DialogUnits";
 import {
   Box,
   Button,
@@ -24,23 +19,22 @@ export default function List() {
   const rows = [
     {
       id: 1,
-      name: "Unit 1",
-      desc: "Unit 1 Desc",
+      name: "Rupiah",
+      code: "RP",
+      kurs: 12500,
     },
     {
       id: 2,
-      name: "Unit 2",
-      desc: "Unit 2 Desc",
+      name: "Dollar",
+      code: "USD",
+      kurs: 13000,
     },
   ];
-
-  const [action, setAction] = useState<"add" | "edit">("add");
-  const [show, setShow] = useState(false);
 
   return (
     <div>
       <Box sx={{ mb: 2 }}>
-        <Typography variant="h3">List Units</Typography>
+        <Typography variant="h3">List Currency</Typography>
       </Box>
       <Box>
         <Grid
@@ -69,10 +63,6 @@ export default function List() {
               variant="contained"
               color="primary"
               startIcon={<IconCirclePlus width={18} />}
-              onClick={() => {
-                setAction("add");
-                setShow(true);
-              }}
             >
               Add
             </Button>
@@ -92,10 +82,13 @@ export default function List() {
                   <Typography variant="h6">No</Typography>
                 </TableCell>
                 <TableCell>
+                  <Typography variant="h6">Code</Typography>
+                </TableCell>
+                <TableCell>
                   <Typography variant="h6">Name</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="h6">Desc</Typography>
+                  <Typography variant="h6">Kurs</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -106,10 +99,13 @@ export default function List() {
                     <Typography variant="subtitle2">{index + 1}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle2"> {row.name}</Typography>
+                    <Typography variant="subtitle2">{row.code}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle2"> {row.desc}</Typography>
+                    <Typography variant="subtitle2">{row.name}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2">Rp. {row.kurs}</Typography>
                   </TableCell>
                 </TableRow>
               ))}
@@ -117,12 +113,6 @@ export default function List() {
           </Table>
         </TableContainer>
       </Paper>
-      <DialogUnits
-        open={show}
-        handleClose={() => {
-          setShow(false);
-        }}
-      />
     </div>
   );
 }
