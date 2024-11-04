@@ -9,10 +9,9 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import { register } from 'module';
 import DialogConfirm from '../DialogConfirm';
 import { IconDeviceFloppy, IconX } from '@tabler/icons-react';
+import CustomTextField from '@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField';
 
 type DialogConfirmProps = {
   open: boolean;

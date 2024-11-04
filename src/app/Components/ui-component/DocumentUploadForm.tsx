@@ -4,7 +4,7 @@ import { IconTrash, IconFileTypePdf, IconFile } from '@tabler/icons-react';
 import Image from 'next/image';
 import CustomOutlinedInput from '../forms/theme-elements/CustomOutlinedInput';
 import { Controller, useFormContext } from 'react-hook-form';
-import { getFileExtension } from '@/utils/common-helper';
+// import { getFileExtension } from '@/utils/common-helper';
 
 type DocumentUploadFormProps = {
   accept?: string;
@@ -33,35 +33,35 @@ const DocumentUploadForm: React.FC<DocumentUploadFormProps> = ({
   const files = methods.watch(name);
   const [selectedFiles, setSelectedFiles] = React.useState<SelectedFile[]>([]);
   const [isRequired, setIsRequired] = React.useState<boolean>(required);
-  useEffect(() => {
-    if (typeof files === 'object') {
-      const newFiles = Array.from(files).map((file: any) => {
-        return {
-          name: file.name,
-          file: file,
-          url: createBlobUrlFromFile(file),
-          preview: createBlobUrlFromFile(file),
-          fileType: file.type.split('/')[1],
-        };
-      });
-      setSelectedFiles(() => newFiles);
-      setIsRequired(() => false);
-    } else if (typeof files === 'string') {
-      setSelectedFiles([
-        {
-          name: files,
-          file: new File([], files),
-          url: files,
-          preview: files,
-          fileType: getFileExtension(files),
-        },
-      ]);
-      setIsRequired(() => false);
-    } else {
-      setSelectedFiles(() => []);
-      setIsRequired(() => required);
-    }
-  }, [files, required]);
+  // useEffect(() => {
+  //   if (typeof files === 'object') {
+  //     const newFiles = Array.from(files).map((file: any) => {
+  //       return {
+  //         name: file.name,
+  //         file: file,
+  //         url: createBlobUrlFromFile(file),
+  //         preview: createBlobUrlFromFile(file),
+  //         fileType: file.type.split('/')[1],
+  //       };
+  //     });
+  //     setSelectedFiles(() => newFiles);
+  //     setIsRequired(() => false);
+  //   } else if (typeof files === 'string') {
+  //     setSelectedFiles([
+  //       {
+  //         name: files,
+  //         file: new File([], files),
+  //         url: files,
+  //         preview: files,
+  //         fileType: getFileExtension(files),
+  //       },
+  //     ]);
+  //     setIsRequired(() => false);
+  //   } else {
+  //     setSelectedFiles(() => []);
+  //     setIsRequired(() => required);
+  //   }
+  // }, [files, required]);
 
   const onDeleteFile = (index: number) => {
     const newFiles = selectedFiles.filter((_: any, i: any) => i !== index);
