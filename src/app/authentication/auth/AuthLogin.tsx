@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Typography,
@@ -7,18 +7,51 @@ import {
   Button,
   Stack,
   Checkbox,
-} from "@mui/material";
+} from '@mui/material';
 import Link from "next/link";
-
+import { loginUser } from "./authController";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
+import { JSX } from 'react/jsx-runtime';
+import { PasswordRounded } from '@mui/icons-material';
 
 interface loginType {
   title?: string;
   subtitle?: JSX.Element | JSX.Element[];
   subtext?: JSX.Element | JSX.Element[];
 }
+const AuthLogin = ({title, subtitle, subtext}: loginType) => {
+  const handleSignIn = async () => {
+    const emailInput = document.getElementById('username') as HTMLInputElement;
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
 
-const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
+    if(!emailInput || !passwordInput){
+      alert('email atau pass nya kosong nich');
+      return
+    }
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    try{
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        }, body: JSON.stringify({email, password}),
+      });
+
+      const result = await response.json();
+      if(result.success){
+        alert(`welcome wel, ${result.user.name}`);
+      } else {
+        alert(`alamak, error ${result.message || result.error}`)
+      }
+    } catch (error){
+      alert('terjadi kesalahan pas login');
+    }
+  };
+
+  return(
   <>
     {title ? (
       <Typography fontWeight="700" variant="h2" mb={1}>
@@ -28,7 +61,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
 
     {subtext}
 
-    <Stack>
+    <Stack component="form" onSubmit={handleSignIn}>
       <Box>
         <Typography
           variant="subtitle1"
@@ -39,7 +72,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
         >
           Username
         </Typography>
-        <CustomTextField variant="outlined" fullWidth />
+        <CustomTextField id="username" variant="outlined" fullWidth />
       </Box>
       <Box mt="25px">
         <Typography
@@ -51,7 +84,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
         >
           Password
         </Typography>
-        <CustomTextField type="password" variant="outlined" fullWidth />
+        <CustomTextField id="password" type="password" variant="outlined" fullWidth />
       </Box>
       <Stack
         justifyContent="space-between"
@@ -94,5 +127,5 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
     {subtitle}
   </>
 );
-
+};
 export default AuthLogin;
