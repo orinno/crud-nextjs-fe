@@ -1,5 +1,8 @@
+import CustomTextField from "@/app/Components/forms/form-elements/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/Components/forms/theme-elements/CustomFormLabel";
 import UppercaseInput from "@/app/Components/ui-component/input/UppercaseInput";
+import { createUnit, updateUnit } from "@/service/master/UnitService";
+import { IUnit } from "@/types/masterTypes";
 import {
   Button,
   Dialog,
@@ -13,17 +16,18 @@ import {
 } from "@mui/material";
 import { IconDeviceFloppy, IconX } from "@tabler/icons-react";
 import { create } from "lodash";
-import React, { useContext, useEffect } from "react";
+import React, { ChangeEvent, useContext, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 type FormDialogProps = {
   open: boolean;
   handleClose: () => void;
-  //   onSuccess: VoidFunction;
+  onSuccess: VoidFunction;
+  data?: IUnit | null;
 };
 
-const FormDialog: React.FC<FormDialogProps> = ({ open, handleClose }) => {
+const FormDialog = (props: FormDialogProps) => {
   const {
     register,
     handleSubmit,
@@ -31,14 +35,49 @@ const FormDialog: React.FC<FormDialogProps> = ({ open, handleClose }) => {
     setValue,
     formState: { errors },
   } = useForm<any>();
+  const { watch } = useForm<any>();
+  // console.log("Watched values:", watch());
 
   const onSubmit: SubmitHandler<any> = async (data) => {
-    toast.success("Data saved successfully");
+    console.log(data);
+    if (props.data) {
+      try {
+        const res = await updateUnit(props.data?.id.toString(), data);
+        if (res) {
+          toast.success("Data Unit has been updated");
+          reset();
+          handleClose();
+          props.onSuccess();
+        }
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+    } else {
+      try {
+        const res = await createUnit(data);
+        if (res) {
+          toast.success("Data Unit has been created");
+          reset();
+          handleClose();
+          props.onSuccess();
+        }
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+    }
+  };
+
+  const handleClose = () => {
+    reset({
+      name: "",
+      desc: "",
+    });
+    props.handleClose();
   };
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+      <Dialog open={props.open} onClose={handleClose} maxWidth="md" fullWidth>
         <DialogTitle>Add Units</DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent dividers>
@@ -58,20 +97,14 @@ const FormDialog: React.FC<FormDialogProps> = ({ open, handleClose }) => {
                     *
                   </Typography>
                 </CustomFormLabel>
-                <TextField
+                <CustomTextField
+                  type="text"
                   fullWidth
-                  variant="outlined"
                   placeholder="Name Units"
                   size="small"
-                  //   {...register('code', { required: 'Code is required' })}
-                  //   helperText={errors.code && errors.code.message}
-                  //   error={errors.code ? true : false}
-                  //   InputProps={{
-                  //     inputComponent: UppercaseInput as any,
-                  //     onChange: (e) => {
-                  //       setValue('code', e.target.value);
-                  //     },
-                  //   }}
+                  {...register("name", { required: true })}
+                  helperText={errors.name && "Name is required"}
+                  error={errors.name ? true : false}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={12}>
@@ -84,23 +117,20 @@ const FormDialog: React.FC<FormDialogProps> = ({ open, handleClose }) => {
                     *
                   </Typography>
                 </CustomFormLabel>
-                <TextField
+                <CustomTextField
                   fullWidth
-                  variant="outlined"
-                  // label="Name*"
-                  placeholder="Units Description"
+                  placeholder="Description"
                   size="small"
-                  //   {...register('namabank', { required: true })}
-                  //   helperText={errors.namabank && 'Name is required'}
-                  //   error={errors.namabank ? true : false}
+                  multiline
+                  rows={3}
+                  {...register("desc", { required: true })}
+                  helperText={errors.desc && "Description is required"}
+                  error={errors.desc ? true : false}
                 />
               </Grid>
             </Grid>
           </DialogContent>
-          <DialogActions
-          // add shadow to dialog action
-          // sx={{ boxShadow: '0px -4px 4px rgba(0, 0, 0 ,0.1)' }}
-          >
+          <DialogActions>
             <Stack spacing={1} direction="row" justifyContent="center">
               <Button
                 variant="outlined"

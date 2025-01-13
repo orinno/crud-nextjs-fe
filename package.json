@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/cache": "11.11.0",
@@ -21,15 +19,17 @@
     "@mui/x-data-grid": "^7.22.1",
     "@tabler/icons-react": "2.30.0",
     "@types/node": "20.4.5",
+    "@types/react": "18.2.18",
+    "@types/react-dom": "18.2.7",
     "apexcharts": "3.41.1",
+    "axios": "^1.7.9",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "lodash": "4.17.21",
-    "mysql2": "^3.12.0",
     "next": "14.2.3",
-    "react": "^18.2.0",
+    "react": "18.2.0",
     "react-apexcharts": "1.4.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "18.2.0",
     "react-helmet-async": "1.3.0",
     "react-hook-form": "^7.53.1",
     "react-mui-sidebar": "^1.3.8",
@@ -37,8 +37,6 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.196",
-    "@types/react": "^19.0.4",
-    "@types/react-dom": "^19.0.2"
+    "@types/lodash": "4.14.196"
   }
 }

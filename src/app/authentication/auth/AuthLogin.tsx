@@ -9,7 +9,6 @@ import {
   Checkbox,
 } from '@mui/material';
 import Link from "next/link";
-import { loginUser } from "./authController";
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import { JSX } from 'react/jsx-runtime';
 import { PasswordRounded } from '@mui/icons-material';
@@ -61,7 +60,7 @@ const AuthLogin = ({title, subtitle, subtext}: loginType) => {
 
     {subtext}
 
-    <Stack component="form" onSubmit={handleSignIn}>
+    <Stack component="form">
       <Box>
         <Typography
           variant="subtitle1"
@@ -72,7 +71,7 @@ const AuthLogin = ({title, subtitle, subtext}: loginType) => {
         >
           Username
         </Typography>
-        <CustomTextField id="username" variant="outlined" fullWidth />
+        <CustomTextField variant="outlined" fullWidth />
       </Box>
       <Box mt="25px">
         <Typography
