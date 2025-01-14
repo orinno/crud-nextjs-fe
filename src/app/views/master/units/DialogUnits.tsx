@@ -38,33 +38,38 @@ const FormDialog = (props: FormDialogProps) => {
   const { watch } = useForm<any>();
   // console.log("Watched values:", watch());
 
-  const onSubmit: SubmitHandler<any> = async (data) => {
-    console.log(data);
-    if (props.data) {
-      try {
-        const res = await updateUnit(props.data?.id.toString(), data);
-        if (res) {
-          toast.success("Data Unit has been updated");
-          reset();
-          handleClose();
-          props.onSuccess();
-        }
-      } catch (error: any) {
-        toast.error(error.message);
+  const onSubmit = async (data: any) => {
+    const params = {
+      name: data.name,
+      desc: data.desc,
+    };
+    try {
+      const res = await createUnit(params);
+      if (res) {
+        toast.success("Data Unit has been created");
+        reset();
+        handleClose();
+        props.onSuccess();
       }
-    } else {
-      try {
-        const res = await createUnit(data);
-        if (res) {
-          toast.success("Data Unit has been created");
-          reset();
-          handleClose();
-          props.onSuccess();
-        }
-      } catch (error: any) {
-        toast.error(error.message);
-      }
+    } catch (error: any) {
+      toast.error(error.message);
     }
+    // console.log(data);
+    // if (props.data) {
+    //   try {
+    //     const res = await updateUnit(props.data?.id.toString(), data);
+    //     if (res) {
+    //       toast.success("Data Unit has been updated");
+    //       reset();
+    //       handleClose();
+    //       props.onSuccess();
+    //     }
+    //   } catch (error: any) {
+    //     toast.error(error.message);
+    //   }
+    // } else {
+
+    // }
   };
 
   const handleClose = () => {
