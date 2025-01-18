@@ -137,24 +137,35 @@ export interface IStudent {
 export interface ITeacher {
   nip: string;
   nuptk: string;
-  name: string ;
+  name: string;
   gender: string;
   email: string;
-  password: string ;
+  password: string;
   birth_place: string;
-  birth_date: string ;
+  birth_date: string;
   address: string;
   villege: string;
-  district: string ;
-  city: string ;
-  province: string ;
+  district: string;
+  city: string;
+  province: string;
   no_kapreg: string;
   nrg: string;
-  jabatan_fungsionalitas: string ;
-  tmt_jabatan_fungsional: string ;
+  jabatan_fungsionalitas: string;
+  tmt_jabatan_fungsional: string;
   pangkat: string;
   tmt_pangkat: string;
-  golongan: string ;
-  status_pegawai: string ;
-  jenis_guru: string ;
+  golongan: string;
+  status_pegawai: string;
+  jenis_guru: string;
+}
+
+// jadwal pelajaran
+export interface IClassSchedule {
+  class_id: string;
+  academic_year_id: number;
+  teacher_id: number;
+  day: string;
+  start_time: string;
+  end_time: string;
+  status: string;
 }

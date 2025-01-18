@@ -67,6 +67,12 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
+    title: "Schedule",
+    icon: IconBuildingBank,
+    href: "/master/schedule",
+  },
+  {
+    id: uniqueId(),
     title: "Student",
     icon: IconUserPlus,
     href: "/master/student",
