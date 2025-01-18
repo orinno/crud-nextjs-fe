@@ -62,3 +62,99 @@ export interface IUnit {
   desc: string;
   coda_element6: string;
 }
+
+export interface IAccident {
+  name: string;
+  code: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  location: string;
+  absen: string;
+  description: string;
+}
+
+export interface IClasses {
+  name: string;
+  code: string;
+  grade_id: string;
+  program_id: string;
+  index: string;
+  start_time: string;
+  end_time: string;
+}
+
+export interface IEdulevel {
+  name: string;
+  code: string;
+  description: string;
+}
+
+export interface IGrade {
+  name: string;
+  code: string;
+  description: string;
+}
+
+export interface Institute {
+  code: string;
+  name: string;
+  edu_level_id: string;
+  leader_name: string;
+  email: string;
+  telephone: string;
+  address: string;
+  province_id: string;
+  city_id: string;
+  district_id: string;
+  village_id: string;
+  post_code: string;
+  logo: string;
+}
+
+export interface IProgram {
+  name: string;
+  code: string;
+  description: string;
+}
+
+export interface IStudent {
+  name: string;
+  gender: string;
+  institution: string;
+  email: string;
+  class: string;
+  password: string;
+  birth_place: string;
+  birth_date: string;
+  address: string;
+  province: string;
+  city: string;
+  district: string;
+  village: string;
+}
+
+export interface ITeacher {
+  nip: string;
+  nuptk: string;
+  name: string ;
+  gender: string;
+  email: string;
+  password: string ;
+  birth_place: string;
+  birth_date: string ;
+  address: string;
+  villege: string;
+  district: string ;
+  city: string ;
+  province: string ;
+  no_kapreg: string;
+  nrg: string;
+  jabatan_fungsionalitas: string ;
+  tmt_jabatan_fungsional: string ;
+  pangkat: string;
+  tmt_pangkat: string;
+  golongan: string ;
+  status_pegawai: string ;
+  jenis_guru: string ;
+}
