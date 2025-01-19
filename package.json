@@ -2,11 +2,13 @@
   "name": "modernize-next-free",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "seed": "ts-node testConnect.ts",
+    "db.ts": "node db.ts"
   },
   "dependencies": {
     "@emotion/cache": "11.11.0",
@@ -17,25 +19,48 @@
     "@mui/lab": "5.0.0-alpha.170",
     "@mui/material": "5.15.15",
     "@mui/x-data-grid": "^7.22.1",
+    "@next/env": "^15.1.4",
+    "@prisma/client": "^6.2.0",
     "@tabler/icons-react": "2.30.0",
-    "@types/node": "20.4.5",
-    "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
     "apexcharts": "3.41.1",
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "lodash": "4.17.21",
-    "next": "14.2.3",
-    "react": "18.2.0",
+    "next": "^14.2.3",
+    "pg": "^8.13.1",
+    "prisma": "^6.2.0",
     "react-apexcharts": "1.4.1",
     "react-dom": "18.2.0",
     "react-helmet-async": "1.3.0",
     "react-hook-form": "^7.53.1",
+    "react-icons": "^5.4.0",
     "react-mui-sidebar": "^1.3.8",
-    "react-toastify": "^10.0.6",
-    "typescript": "5.1.6"
+    "react-toastify": "^10.0.6"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.196"
-  }
+    "@types/bcrypt": "^5.0.2",
+    "@types/bootstrap": "^5.2.10",
+    "@types/lodash": "4.14.196",
+    "@types/node": "^22.10.5",
+    "@types/pg": "^8.11.10",
+    "@types/react": "^18.2.18",
+    "react-secure-storage": "^1.3.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  },
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "dist"
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

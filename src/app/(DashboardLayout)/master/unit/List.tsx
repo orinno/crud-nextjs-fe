@@ -122,6 +122,10 @@ export default function List() {
         handleClose={() => {
           setShow(false);
         }}
+        onSuccess={() => {
+          setShow(false);
+        }}
+        data={{} as any}
       />
     </div>
   );
