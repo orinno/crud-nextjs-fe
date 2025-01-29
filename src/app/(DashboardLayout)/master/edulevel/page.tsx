@@ -1,7 +1,8 @@
+/** eslint-disable lines-around-comment */
 "use client";
 
-import { useEffect, useState } from "react";
-import DialogUnits from "@/app/views/master/units/DialogUnits";
+import { useState } from "react";
+import DialogEdulevel from "@/app/views/master/edulevel/DialogEdulevel";
 import {
   Box,
   Button,
@@ -20,32 +21,41 @@ import {
 import { IconCirclePlus, IconSearch } from "@tabler/icons-react";
 
 export default function List() {
-  // State to store fetched data
-  const [rows, setRows] = useState<any[]>([]);
+  const rows = [
+    {
+      name: 'Primary School',
+      code: 'PS',
+      description: 'The first stage of formal education, typically for children aged 6 to 12.'
+    },
+    {
+      name: 'Junior High School',
+      code: 'JHS',
+      description: 'The stage of education typically for children aged 12 to 15.'
+    },
+    {
+      name: 'Senior High School',
+      code: 'SHS',
+      description: 'The stage of education typically for adolescents aged 15 to 18.'
+    },
+    {
+      name: 'Undergraduate',
+      code: 'UG',
+      description: 'The education level pursued after high school, typically leading to a Bachelor\'s degree.'
+    },
+    {
+      name: 'Graduate',
+      code: 'G',
+      description: 'Education beyond the undergraduate level, leading to a Master\'s or Doctoral degree.'
+    }
+  ];
 
-  // States for dialog and action
-  const [action, setAction] = useState<"add" | "edit">("add");
   const [show, setShow] = useState(false);
-
-  // Fetch data from the Laravel API on component mount
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/units");
-        const data = await response.json();
-        setRows(data); // Set the fetched data to the state
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const [action, setAction] = useState<"add" | "edit">("add");
 
   return (
     <div>
       <Box sx={{ mb: 2 }}>
-        <Typography variant="h3">List Units</Typography>
+        <Typography variant="h3">List Data Edulevel</Typography>
       </Box>
       <Box>
         <Grid
@@ -97,16 +107,22 @@ export default function List() {
                   <Typography variant="h6">No</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="h6">Name</Typography>
+                  <Typography variant="h6">Nama Edulevel</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="h6">Desc</Typography>
+                  <Typography variant="h6">Kode</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Deskripsi</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Action</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row: any, index: number) => (
-                <TableRow key={row.id}>
+              {rows.map((row, index) => (
+                <TableRow key={row.code}>
                   <TableCell>
                     <Typography variant="subtitle2">{index + 1}</Typography>
                   </TableCell>
@@ -114,7 +130,23 @@ export default function List() {
                     <Typography variant="subtitle2"> {row.name}</Typography>
                   </TableCell>
                   <TableCell>
+                    <Typography variant="subtitle2"> {row.code}</Typography>
+                  </TableCell>
+                  <TableCell>
                     <Typography variant="subtitle2"> {row.description}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => {
+                        setAction("edit");
+                        setShow(true);
+                      }}
+                    >
+                      Edit
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -122,7 +154,7 @@ export default function List() {
           </Table>
         </TableContainer>
       </Paper>
-      <DialogUnits
+      <DialogEdulevel
         open={show}
         handleClose={() => {
           setShow(false);
@@ -130,7 +162,7 @@ export default function List() {
         onSuccess={() => {
           setShow(false);
         }}
-        data={{} as any}
+        data={{} as any} // This is where you would pass the data for the dialog, possibly based on action type
       />
     </div>
   );
