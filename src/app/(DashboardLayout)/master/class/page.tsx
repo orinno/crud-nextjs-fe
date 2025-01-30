@@ -32,7 +32,7 @@ export default function List() {
   const rows = [
     {
       id: 1,
-      name: "Pengenalan Pemrograman",
+      name: "Pengenalan",
       code: "PP101",
       grade_id: "Dasar",
       program_id: "Teknologi Informasi",
