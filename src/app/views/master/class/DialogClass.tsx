@@ -150,10 +150,10 @@ const FormDialog = (props: FormDialogProps) => {
                       select
                       error={!!error}
                       helperText={error?.message}
-                      onChange={(e) => {
+                      onChange={(e:any) => {
                         const selectedValue = e.target.value;
                         field.onChange(selectedValue);
-                        const selected = codeMapping[selectedValue];
+                        const selected = codeMapping[selectedValue as keyof typeof codeMapping];
                         if (selected) {
                           setValue("grade_id", selected.grade_id);
                           setValue("program_id", selected.program_id);
