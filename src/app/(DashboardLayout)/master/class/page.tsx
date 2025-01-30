@@ -80,6 +80,16 @@ export default function List() {
       start_time: "17:00",
       end_time: "19:00",
     },
+    {
+      id: 6,
+      name: "Sistem Basis Data 2",
+      code: "SBD1052",
+      grade_id: "Lanjut 2",
+      program_id: "Sistem Informasi 2",
+      index: "1055",
+      start_time: "17:00",
+      end_time: "19:00",
+    },
   ];
 
   const [action, setAction] = useState<"add" | "edit" | "show">("add");
