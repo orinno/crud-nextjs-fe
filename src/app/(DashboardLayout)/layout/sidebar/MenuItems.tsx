@@ -1,10 +1,9 @@
 import {
   IconAperture,
   IconBuildingBank,
-  IconCashBanknote,
+  IconCoinPound,
   IconCopy,
   IconCurrencyDollar,
-  IconCurrencyEthereum,
   IconLayoutDashboard,
   IconLogin,
   IconMoodHappy,
@@ -39,27 +38,15 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: "Bank",
-    icon: IconCashBanknote,
-    href: "/master/bank",
-  },
-  {
-    id: uniqueId(),
     title: "Class",
     icon: IconCurrencyDollar,
     href: "/master/class",
   },
   {
     id: uniqueId(),
-    title: "Currency",
-    icon: IconCurrencyEthereum,
-    href: "/master/currency",
-  },
-  {
-    id: uniqueId(),
-    title: "City",
-    icon: IconBuildingBank,
-    href: "/master/city",
+    title: "Country",
+    icon: IconCoinPound,
+    href: "/master/country",
   },
   {
     id: uniqueId(),
