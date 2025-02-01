@@ -1,6 +1,7 @@
 import {
   IconAperture,
   IconBuildingBank,
+  IconCoinPound,
   IconCopy,
   IconCurrencyDollar,
   IconLayoutDashboard,
@@ -40,6 +41,12 @@ const Menuitems = [
     title: "Class",
     icon: IconCurrencyDollar,
     href: "/master/class",
+  },
+  {
+    id: uniqueId(),
+    title: "Country",
+    icon: IconCoinPound,
+    href: "/master/country",
   },
   {
     id: uniqueId(),
