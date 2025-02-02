@@ -9,6 +9,7 @@ import {
   IconTypography,
   IconUserPlus,
   IconWeight,
+  IconMap ,
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -89,6 +90,13 @@ const Menuitems = [
     icon: IconWeight,
     href: "/master/unit",
   },
+  {
+    id: uniqueId(),
+    title: "Province",
+    icon: IconMap,
+    href: "/master/province",
+   },
+
   // {
   //   navlabel: true,
   //   subheader: "Auth",
