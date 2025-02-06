@@ -17,8 +17,15 @@ import {
   TableRow,
   TextField,
   Typography,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
-import { IconCirclePlus, IconSearch } from "@tabler/icons-react";
+import {
+  IconCirclePlus,
+  IconSearch,
+  IconDotsVertical,
+} from "@tabler/icons-react";
 
 export default function List() {
   const rows = [
@@ -51,7 +58,20 @@ export default function List() {
 
   const [show, setShow] = useState(false);
   const [action, setAction] = useState<"add" | "edit">("add");
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setSelectedRow(null);
+  };
+  const handleMenuClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    row: any
+  ) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedRow(row);
+  };
   return (
     <div>
       <Box sx={{ mb: 2 }}>
@@ -136,17 +156,9 @@ export default function List() {
                     <Typography variant="subtitle2"> {row.description}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => {
-                        setAction("edit");
-                        setShow(true);
-                      }}
-                    >
-                      Edit
-                    </Button>
+                  <IconButton onClick={(e) => handleMenuClick(e, row)}>
+                      <IconDotsVertical />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -154,6 +166,22 @@ export default function List() {
           </Table>
         </TableContainer>
       </Paper>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem
+          onClick={() => {
+            setAction("edit");
+            setShow(true);
+            handleMenuClose();
+          }}
+        >
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>Delete</MenuItem>
+      </Menu>
       <DialogEdulevel
         open={show}
         handleClose={() => {

@@ -1,7 +1,6 @@
 import CustomTextField from "@/app/Components/forms/form-elements/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/Components/forms/theme-elements/CustomFormLabel";
-import { createUnit, updateUnit } from "@/service/master/UnitService";
-import { IEdulevel } from "@/types/masterTypes";
+import { createUnit } from "@/service/master/UnitService";
 import {
   Button,
   Dialog,
@@ -9,46 +8,34 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  MenuItem,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import { IconDeviceFloppy, IconX } from "@tabler/icons-react";
-import React, { ChangeEvent, useContext, useEffect } from "react";
-import {
-  Controller,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 type FormDialogProps = {
   open: boolean;
   handleClose: () => void;
   onSuccess: VoidFunction;
-  data?: any | null; // Adjusted to match structure of the array data
+  data?: any | null;
 };
 
 const FormDialog = (props: FormDialogProps) => {
-  const methods = useForm<any>(); // Adjusted form type
+  const methods = useForm<any>();
   const {
     handleSubmit,
     reset,
-    setValue,
-    watch,
     register,
-    control,
     formState: { errors },
   } = methods;
-
-  // console.log("Watched values:", watch());
 
   const onSubmit = async (data: any) => {
     const params = {
       name: data.name,
-      code: data.code, // Added field for code
+      code: data.code,
       description: data.description,
     };
 
@@ -66,11 +53,7 @@ const FormDialog = (props: FormDialogProps) => {
   };
 
   const handleClose = () => {
-    reset({
-      name: "",
-      code: "",
-      description: "",
-    });
+    reset({ name: "", code: "", description: "" });
     props.handleClose();
   };
 
@@ -80,13 +63,10 @@ const FormDialog = (props: FormDialogProps) => {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent dividers>
-            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} mt={-2}>
-              <Grid item xs={12}>
-                <CustomFormLabel htmlFor="name" sx={{ mt: 0 }}>
-                  Nama Edulevel{" "}
-                  <Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>
-                    *
-                  </Typography>
+            <Grid container spacing={2} mt={-2}>
+              <Grid item xs={6}>
+                <CustomFormLabel htmlFor="name">
+                  Nama<Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>*</Typography>
                 </CustomFormLabel>
                 <CustomTextField
                   type="text"
@@ -95,16 +75,13 @@ const FormDialog = (props: FormDialogProps) => {
                   size="small"
                   {...register("name", { required: true })}
                   helperText={errors.name && "Nama Edulevel is required"}
-                  error={errors.name ? true : false}
+                  error={!!errors.name}
                 />
               </Grid>
 
-              <Grid item xs={12}>
-                <CustomFormLabel htmlFor="code" sx={{ mt: 0 }}>
-                  Kode Edulevel{" "}
-                  <Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>
-                    *
-                  </Typography>
+              <Grid item xs={6}>
+                <CustomFormLabel htmlFor="code">
+                  Kode<Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>*</Typography>
                 </CustomFormLabel>
                 <CustomTextField
                   type="text"
@@ -113,16 +90,13 @@ const FormDialog = (props: FormDialogProps) => {
                   size="small"
                   {...register("code", { required: true })}
                   helperText={errors.code && "Kode Edulevel is required"}
-                  error={errors.code ? true : false}
+                  error={!!errors.code}
                 />
               </Grid>
 
               <Grid item xs={12}>
-                <CustomFormLabel htmlFor="description" sx={{ mt: 0 }}>
-                  Deskripsi{" "}
-                  <Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>
-                    *
-                  </Typography>
+                <CustomFormLabel htmlFor="description">
+                  Deskripsi <Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>*</Typography>
                 </CustomFormLabel>
                 <CustomTextField
                   fullWidth
@@ -132,11 +106,12 @@ const FormDialog = (props: FormDialogProps) => {
                   rows={3}
                   {...register("description", { required: true })}
                   helperText={errors.description && "Deskripsi is required"}
-                  error={errors.description ? true : false}
+                  error={!!errors.description}
                 />
               </Grid>
             </Grid>
           </DialogContent>
+
           <DialogActions>
             <Stack spacing={1} direction="row" justifyContent="center">
               <Button

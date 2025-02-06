@@ -72,9 +72,9 @@ const FormDialog = (props: FormDialogProps) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent dividers>
             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} mt={-2}>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <CustomFormLabel htmlFor="province_name" sx={{ mt: 0 }}>
-                  Nama Provinsi{" "}
+                  Nama Provinsi {" "}
                   <Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>
                     *
                   </Typography>
@@ -90,9 +90,9 @@ const FormDialog = (props: FormDialogProps) => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <CustomFormLabel htmlFor="code" sx={{ mt: 0 }}>
-                  Kode Provinsi{" "}
+                  Kode Provinsi {" "}
                   <Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>
                     *
                   </Typography>
@@ -110,7 +110,7 @@ const FormDialog = (props: FormDialogProps) => {
 
               <Grid item xs={12}>
                 <CustomFormLabel htmlFor="description" sx={{ mt: 0 }}>
-                  Deskripsi{" "}
+                  Deskripsi {" "}
                   <Typography variant="subtitle1" sx={{ color: "red", display: "inline" }}>
                     *
                   </Typography>
