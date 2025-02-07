@@ -15,7 +15,7 @@ const Dashboard = () => {
       <Box>
         <span>Dashboard</span>
       </Box>
-      {/* <Box>
+      <Box>
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
             <SalesOverview />
@@ -40,7 +40,7 @@ const Dashboard = () => {
             <Blog />
           </Grid>
         </Grid>
-      </Box> */}
+      </Box>
     </PageContainer>
   );
 };

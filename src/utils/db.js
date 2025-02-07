@@ -13,4 +13,4 @@ const pool = mysql.createPool({
 export function query(arg0, arg1) {
     throw new Error('Function not implemented.');
 }
-export default pool;
+ export default pool;

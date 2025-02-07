@@ -1,7 +1,8 @@
+/** eslint-disable lines-around-comment */
 "use client";
 
-import { useEffect, useState } from "react";
-import DialogUnits from "@/app/views/master/units/DialogUnits";
+import { useMemo, useState } from "react";
+import DialogAccident from "@/app/views/master/accident/DialogAccident";
 import {
   Box,
   Button,
@@ -20,32 +21,36 @@ import {
 import { IconCirclePlus, IconSearch } from "@tabler/icons-react";
 
 export default function List() {
-  // State to store fetched data
-  const [rows, setRows] = useState<any[]>([]);
+  const rows = [
+    {
+      id: 1,
+      name: "Sakit",
+      date: "2025-01-18",
+      start_time: "08:00",
+      end_time: "09:00",
+      location: "Sekolah",
+      absen: "Absen Masuk",
+      description: "Sakit",
+    },
+    {
+      id: 2,
+      name: "Izin",
+      date: "2025-01-18",
+      start_time: "08:00",
+      end_time: "16:00",
+      location: "Acara Keluarga",
+      absen: "Absen Masuk",
+      description: "Izin full tidak masuk",
+    },
+  ];
 
-  // States for dialog and action
-  const [action, setAction] = useState<"add" | "edit">("add");
   const [show, setShow] = useState(false);
-
-  // Fetch data from the Laravel API on component mount
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/units");
-        const data = await response.json();
-        setRows(data); // Set the fetched data to the state
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const [action, setAction] = useState<"add" | "edit">("add");
 
   return (
     <div>
       <Box sx={{ mb: 2 }}>
-        <Typography variant="h3">List Units</Typography>
+        <Typography variant="h3">List Data Kejadian</Typography>
       </Box>
       <Box>
         <Grid
@@ -97,15 +102,33 @@ export default function List() {
                   <Typography variant="h6">No</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="h6">Name</Typography>
+                  <Typography variant="h6">Nama Kejadian</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="h6">Desc</Typography>
+                  <Typography variant="h6">Tanggal</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Jam Mulai</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Jam Selesai</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Lokasi</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Absen</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Keterangan</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Action</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row: any, index: number) => (
+              {rows.map((row, index) => (
                 <TableRow key={row.id}>
                   <TableCell>
                     <Typography variant="subtitle2">{index + 1}</Typography>
@@ -114,7 +137,26 @@ export default function List() {
                     <Typography variant="subtitle2"> {row.name}</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="subtitle2"> {row.description}</Typography>
+                    <Typography variant="subtitle2"> {row.date}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2">
+                      {row.start_time}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2"> {row.end_time}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2"> {row.location}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2"> {row.absen}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2">
+                      {row.description}
+                    </Typography>
                   </TableCell>
                 </TableRow>
               ))}
@@ -122,7 +164,7 @@ export default function List() {
           </Table>
         </TableContainer>
       </Paper>
-      <DialogUnits
+      <DialogAccident
         open={show}
         handleClose={() => {
           setShow(false);

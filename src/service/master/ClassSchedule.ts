@@ -13,7 +13,7 @@ export async function getListUnit({
   });
 
   try {
-    const { data } = await ApiService.request(`/units`, "GET");
+    const { data } = await ApiService.request(`/schedules`, "GET");
 
     return data as IResponseApi;
   } catch (error) {
@@ -24,7 +24,7 @@ export async function getListUnit({
 export async function createUnit(body: any): Promise<IResponseApi | null> {
   console.log(body);
   try {
-    const { data } = await ApiService.request(`/units`, "POST", body);
+    const { data } = await ApiService.request(`/schedules`, "POST", body);
 
     return data as IResponseApi;
   } catch (e) {
@@ -37,7 +37,7 @@ export async function updateUnit(
   body: any
 ): Promise<IResponseApi | null> {
   try {
-    const { data } = await ApiService.request(`/units/${id}`, "PUT", body);
+    const { data } = await ApiService.request(`/schedules/${id}`, "PUT", body);
 
     return data as IResponseApi;
   } catch (e) {
@@ -47,7 +47,7 @@ export async function updateUnit(
 
 export async function deleteUnit(id: string): Promise<IResponseApi | null> {
   try {
-    const { data } = await ApiService.request(`/units/${id}`, "DELETE");
+    const { data } = await ApiService.request(`/schedules/${id}`, "DELETE");
 
     return data as IResponseApi;
   } catch (e) {

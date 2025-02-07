@@ -1,7 +1,7 @@
 import { IResponseApi, PaginationParams } from "@/types/commonTypes";
 import ApiService from "../BaseService";
 
-export async function getListUnit({
+export async function getListCity({
   page = 1,
   pageSize = 10,
   search = "",
@@ -13,7 +13,7 @@ export async function getListUnit({
   });
 
   try {
-    const { data } = await ApiService.request(`/units`, "GET");
+    const { data } = await ApiService.request(`/city`, "GET");
 
     return data as IResponseApi;
   } catch (error) {
@@ -21,10 +21,10 @@ export async function getListUnit({
   }
 }
 
-export async function createUnit(body: any): Promise<IResponseApi | null> {
+export async function createCity(body: any): Promise<IResponseApi | null> {
   console.log(body);
   try {
-    const { data } = await ApiService.request(`/units`, "POST", body);
+    const { data } = await ApiService.request(`/city`, "POST", body);
 
     return data as IResponseApi;
   } catch (e) {
@@ -32,12 +32,12 @@ export async function createUnit(body: any): Promise<IResponseApi | null> {
   }
 }
 
-export async function updateUnit(
+export async function updateCity(
   id: string,
   body: any
 ): Promise<IResponseApi | null> {
   try {
-    const { data } = await ApiService.request(`/units/${id}`, "PUT", body);
+    const { data } = await ApiService.request(`/city/${id}`, "PUT", body);
 
     return data as IResponseApi;
   } catch (e) {
@@ -45,9 +45,9 @@ export async function updateUnit(
   }
 }
 
-export async function deleteUnit(id: string): Promise<IResponseApi | null> {
+export async function deleteCity(id: string): Promise<IResponseApi | null> {
   try {
-    const { data } = await ApiService.request(`/units/${id}`, "DELETE");
+    const { data } = await ApiService.request(`/city/${id}`, "DELETE");
 
     return data as IResponseApi;
   } catch (e) {

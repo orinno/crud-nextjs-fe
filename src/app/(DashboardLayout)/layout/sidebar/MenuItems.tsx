@@ -1,6 +1,7 @@
 import {
   IconAperture,
   IconBuildingBank,
+  IconCoinPound,
   IconCopy,
   IconCurrencyDollar,
   IconLayoutDashboard,
@@ -9,6 +10,7 @@ import {
   IconTypography,
   IconUserPlus,
   IconWeight,
+  IconMap ,
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -40,6 +42,12 @@ const Menuitems = [
     title: "Class",
     icon: IconCurrencyDollar,
     href: "/master/class",
+  },
+  {
+    id: uniqueId(),
+    title: "Country",
+    icon: IconCoinPound,
+    href: "/master/country",
   },
   {
     id: uniqueId(),
@@ -89,6 +97,13 @@ const Menuitems = [
     icon: IconWeight,
     href: "/master/unit",
   },
+  {
+    id: uniqueId(),
+    title: "Province",
+    icon: IconMap,
+    href: "/master/province",
+   },
+
   // {
   //   navlabel: true,
   //   subheader: "Auth",
