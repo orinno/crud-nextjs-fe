@@ -38,11 +38,24 @@ const FormDialog = (props: FormDialogProps) => {
   const { watch } = useForm<any>();
   // console.log("Watched values:", watch());
 
+  // Method to refresh the page
+  const refreshPage = () => {
+      window.location.reload();
+  };
+
   const onSubmit = async (data: any) => {
     const params = {
       name: data.name,
-      desc: data.desc,
+      description: data.description,
     };
+
+    // Validate that both name and description are provided
+    if (!params.name || !params.description) {
+        toast.error("Name and description are required");
+        return;
+    }
+
+    console.log(params)
     try {
       const res = await createUnit(params);
       if (res) {
@@ -50,6 +63,7 @@ const FormDialog = (props: FormDialogProps) => {
         reset();
         handleClose();
         props.onSuccess();
+        refreshPage();
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -128,7 +142,7 @@ const FormDialog = (props: FormDialogProps) => {
                   size="small"
                   multiline
                   rows={3}
-                  {...register("desc", { required: true })}
+                  {...register("description", { required: true })}
                   helperText={errors.desc && "Description is required"}
                   error={errors.desc ? true : false}
                 />

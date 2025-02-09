@@ -35,6 +35,11 @@ class ApiService {
 
     this.axiosInstance.interceptors.request.use(
       (config) => {
+        // Tambahkan token autentikasi ke header permintaan
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoiam9obiIsImlhdCI6MTczODIyNDgyMn0.WtPdZhiUeDjreoxFD5zLzKYMMiZs1M5CpYFfdMS5d9k'; // Atau cara lain untuk mendapatkan token
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`;
+        }
         return config;
       },
       (error) => {
@@ -66,7 +71,7 @@ class ApiService {
     url: string,
     type: string,
     data: any = [], // FormData or JSON
-    callback = (result: any) => {},
+    callback = (result: any) => { },
     headers: any = {}
   ): Promise<AxiosResponse> {
     try {

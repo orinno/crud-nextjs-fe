@@ -6,7 +6,9 @@ import {
   Box,
   Button,
   Grid,
+  IconButton,
   InputAdornment,
+  Menu,
   Paper,
   Table,
   TableBody,
@@ -15,9 +17,12 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography,
+  Typography, MenuItem,
 } from "@mui/material";
-import { IconCirclePlus, IconSearch } from "@tabler/icons-react";
+import { IconCirclePlus, IconDotsVertical, IconSearch } from "@tabler/icons-react";
+import ApiService from "@/service/BaseService"; // Import ApiService
+import { IconEye, IconEdit, IconTrash } from "@tabler/icons-react";
+import { getListUnit } from "@/service/master/UnitService";
 
 export default function List() {
   // State to store fetched data
@@ -26,14 +31,45 @@ export default function List() {
   // States for dialog and action
   const [action, setAction] = useState<"add" | "edit">("add");
   const [show, setShow] = useState(false);
+  // State for menu anchor and selected row
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedRow, setSelectedRow] = useState<any>(null);
 
-  // Fetch data from the Laravel API on component mount
+  // Handle menu open
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, row: any) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedRow(row);
+  };
+
+  // Handle menu close
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setSelectedRow(null);
+  };
+
+  // Handle actions
+  const handleAction = (action: string) => {
+    console.log(action, selectedRow);
+    if(action === 'show') {
+      setShow(true);
+      setAction(action as any);
+    } else if(action === 'edit') {
+      setShow(true);
+      setAction(action);
+    } else if(action === 'delete') {
+      // Show confirmation dialog directly
+    }
+    handleMenuClose();
+  };
+
+  // Fetch data from the API on component mount
+  // Fetch data from the API on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/units");
-        const data = await response.json();
-        setRows(data); // Set the fetched data to the state
+        const response = await getListUnit({ page: 1, pageSize: 10, search: "" });
+        console.log(response)
+        setRows(response as any); // Set the fetched data to the state
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -102,6 +138,9 @@ export default function List() {
                 <TableCell>
                   <Typography variant="h6">Desc</Typography>
                 </TableCell>
+                <TableCell>
+                  <Typography variant="h6">Aksi</Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -115,6 +154,29 @@ export default function List() {
                   </TableCell>
                   <TableCell>
                     <Typography variant="subtitle2"> {row.description}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton
+                      size="small"
+                      onClick={(e) => handleMenuOpen(e, row)}
+                    >
+                      <IconDotsVertical />
+                    </IconButton>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl) && selectedRow?.id === row.id}
+                      onClose={handleMenuClose}
+                    >
+                      <MenuItem onClick={() => handleAction("show")}>
+                        <IconEye style={{ marginRight: 8 }} /> Show
+                      </MenuItem>
+                      <MenuItem onClick={() => handleAction("edit")}>
+                        <IconEdit style={{ marginRight: 8 }} /> Edit
+                      </MenuItem>
+                      <MenuItem onClick={() => handleAction("delete")}>
+                        <IconTrash style={{ marginRight: 8 }} /> Delete
+                      </MenuItem>
+                    </Menu>
                   </TableCell>
                 </TableRow>
               ))}
