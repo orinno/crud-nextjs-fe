@@ -1,16 +1,16 @@
 import {
   IconAperture,
   IconBuildingBank,
-  IconCashBanknote,
+  IconCoinPound,
   IconCopy,
   IconCurrencyDollar,
-  IconCurrencyEthereum,
   IconLayoutDashboard,
   IconLogin,
   IconMoodHappy,
   IconTypography,
   IconUserPlus,
   IconWeight,
+  IconMap ,
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -39,27 +39,15 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: "Bank",
-    icon: IconCashBanknote,
-    href: "/master/bank",
-  },
-  {
-    id: uniqueId(),
     title: "Class",
     icon: IconCurrencyDollar,
     href: "/master/class",
   },
   {
     id: uniqueId(),
-    title: "Currency",
-    icon: IconCurrencyEthereum,
-    href: "/master/currency",
-  },
-  {
-    id: uniqueId(),
-    title: "City",
-    icon: IconBuildingBank,
-    href: "/master/city",
+    title: "Country",
+    icon: IconCoinPound,
+    href: "/master/country",
   },
   {
     id: uniqueId(),
@@ -109,6 +97,13 @@ const Menuitems = [
     icon: IconWeight,
     href: "/master/unit",
   },
+  {
+    id: uniqueId(),
+    title: "Province",
+    icon: IconMap,
+    href: "/master/province",
+   },
+
   // {
   //   navlabel: true,
   //   subheader: "Auth",
