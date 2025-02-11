@@ -76,7 +76,7 @@ export default function List() {
   return (
     <div>
       <Box sx={{ mb: 2 }}>
-        <Typography variant="h3">List Edulevel</Typography>
+        <Typography variant="h3">List Education level</Typography>
       </Box>
       <Box>
         <Grid container alignItems="center" justifyContent="space-between">
