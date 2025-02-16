@@ -1,4 +1,3 @@
-/** eslint-disable lines-around-comment */
 "use client";
 
 import { useState } from "react";
@@ -7,7 +6,10 @@ import {
   Box,
   Button,
   Grid,
+  IconButton,
   InputAdornment,
+  Menu,
+  MenuItem,
   Paper,
   Table,
   TableBody,
@@ -17,76 +19,69 @@ import {
   TableRow,
   TextField,
   Typography,
-  IconButton,
-  Menu,
-  MenuItem,
+  Pagination,
 } from "@mui/material";
 import {
   IconCirclePlus,
-  IconSearch,
   IconDotsVertical,
+  IconEdit,
+  IconEye,
+  IconTrash,
+  IconSearch,
 } from "@tabler/icons-react";
 
 export default function List() {
   const rows = [
-    {
-      name: 'Primary School',
-      code: 'PS',
-      description: 'The first stage of formal education, typically for children aged 6 to 12.'
-    },
-    {
-      name: 'Junior High School',
-      code: 'JHS',
-      description: 'The stage of education typically for children aged 12 to 15.'
-    },
-    {
-      name: 'Senior High School',
-      code: 'SHS',
-      description: 'The stage of education typically for adolescents aged 15 to 18.'
-    },
-    {
-      name: 'Undergraduate',
-      code: 'UG',
-      description: 'The education level pursued after high school, typically leading to a Bachelor\'s degree.'
-    },
-    {
-      name: 'Graduate',
-      code: 'G',
-      description: 'Education beyond the undergraduate level, leading to a Master\'s or Doctoral degree.'
-    }
+    { code: "SD", name: "Sekolah Dasar", description: "Tingkat pendidikan dasar untuk anak usia 6 hingga 12 tahun." },
+    { code: "SMP", name: "Sekolah Menengah Pertama", description: "Tingkat pendidikan menengah pertama untuk anak usia 12 hingga 15 tahun." },
+    { code: "SMA", name: "Sekolah Menengah Atas", description: "Tingkat pendidikan menengah atas untuk remaja usia 15 hingga 18 tahun." },
+    { code: "D3", name: "Diploma 3", description: "Program pendidikan vokasi setara dengan jenjang pendidikan diploma tiga." },
+    { code: "S1", name: "Sarjana", description: "Tingkat pendidikan tinggi pertama yang ditempuh setelah SMA/SMK." },
+    { code: "S2", name: "Magister", description: "Tingkat pendidikan pascasarjana setelah menyelesaikan program sarjana." },
+    { code: "S3", name: "Doktor", description: "Tingkat pendidikan tertinggi yang ditempuh setelah magister." },
   ];
 
+  const [action, setAction] = useState<"add" | "edit" | "show">("add");
   const [show, setShow] = useState(false);
-  const [action, setAction] = useState<"add" | "edit">("add");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [dialogType, setDialogType] = useState<"delete" | "edit" | "show" | null>(null);
   const [selectedRow, setSelectedRow] = useState<any>(null);
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    setSelectedRow(null);
-  };
-  const handleMenuClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    row: any
-  ) => {
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 5;
+  const paginatedRows = rows.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>, row: any) => {
     setAnchorEl(event.currentTarget);
     setSelectedRow(row);
   };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleAction = (type: "edit" | "show" | "delete") => {
+    setDialogType(type);
+    setAnchorEl(null);
+    if (type === "edit" || type === "show") {
+      setAction(type);
+      setShow(true);
+    }
+  };
+
+  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   return (
     <div>
       <Box sx={{ mb: 2 }}>
-        <Typography variant="h3">List Data Edulevel</Typography>
+        <Typography variant="h3">List Education level</Typography>
       </Box>
       <Box>
-        <Grid
-          container
-          sx={{ display: "flex" }}
-          alignItems="center"
-          justifyContent={"space-between"}
-        >
+        <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
             <TextField
-              id="input-with-icon-adornment"
               size="small"
               placeholder="Search..."
               InputProps={{
@@ -117,81 +112,77 @@ export default function List() {
       <Paper variant="outlined" sx={{ mt: 1 }}>
         <TableContainer>
           <Table
-            size={"medium"}
-            sx={{ minWidth: 650 }}
-            aria-label="simple table "
+            size="medium"
+            sx={{
+              minWidth: 650,
+              "& tr:last-child": {
+                borderBottom: "2px solid #ddd",
+              },
+            }}
+            aria-label="simple table"
           >
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <Typography variant="h6">No</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="h6">Nama Edulevel</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="h6">Kode</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="h6">Deskripsi</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="h6">Action</Typography>
-                </TableCell>
+                <TableCell><Typography variant="h6">No</Typography></TableCell>
+                <TableCell><Typography variant="h6">Name Edulevel</Typography></TableCell>
+                <TableCell><Typography variant="h6">Code</Typography></TableCell>
+                <TableCell><Typography variant="h6">Description</Typography></TableCell>
+                <TableCell><Typography variant="h6">Action</Typography></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, index) => (
+              {paginatedRows.map((row, index) => (
                 <TableRow key={row.code}>
+                  <TableCell><Typography variant="subtitle2">{(page - 1) * rowsPerPage + index + 1}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2">{row.name}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2">{row.code}</Typography></TableCell>
+                  <TableCell><Typography variant="subtitle2">{row.description}</Typography></TableCell>
                   <TableCell>
-                    <Typography variant="subtitle2">{index + 1}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2"> {row.name}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2"> {row.code}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="subtitle2"> {row.description}</Typography>
-                  </TableCell>
-                  <TableCell>
-                  <IconButton onClick={(e) => handleMenuClick(e, row)}>
+                    <IconButton size="small" onClick={(e) => handleMenuOpen(e, row)}>
                       <IconDotsVertical />
                     </IconButton>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl) && selectedRow?.code === row.code}
+                      onClose={handleMenuClose}
+                    >
+                      <MenuItem onClick={() => handleAction("show")}> <IconEye style={{ marginRight: 8 }} /> Show </MenuItem>
+                      <MenuItem onClick={() => handleAction("edit")}> <IconEdit style={{ marginRight: 8 }} /> Edit </MenuItem>
+                      <MenuItem onClick={() => handleAction("delete")}> <IconTrash style={{ marginRight: 8 }} /> Delete </MenuItem>
+                    </Menu>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <Box display="flex" justifyContent="center" my={2}>
+          <Pagination
+            count={Math.ceil(rows.length / rowsPerPage)}
+            page={page}
+            onChange={handleChangePage}
+            color="primary"
+          />
+        </Box>
       </Paper>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem
-          onClick={() => {
-            setAction("edit");
-            setShow(true);
-            handleMenuClose();
-          }}
-        >
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleMenuClose}>Delete</MenuItem>
-      </Menu>
+
       <DialogEdulevel
         open={show}
-        handleClose={() => {
-          setShow(false);
-        }}
-        onSuccess={() => {
-          setShow(false);
-        }}
-        data={{} as any} // This is where you would pass the data for the dialog, possibly based on action type
+        handleClose={() => setShow(false)}
+        onSuccess={() => setShow(false)}
+        data={selectedRow || {}}
       />
+
+      {dialogType === "delete" && (
+        <DialogEdulevel
+          open={true}
+          handleClose={() => setDialogType(null)}
+          onSuccess={() => {
+            console.log("Deleted:", selectedRow);
+            setDialogType(null);
+          }}
+        />
+      )}
     </div>
   );
-}
+} 

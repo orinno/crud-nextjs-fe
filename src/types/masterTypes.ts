@@ -59,7 +59,7 @@ export interface IUnit {
   id: number;
   code: string;
   name: string;
-  desc: string;
+  description: string;
   coda_element6: string;
 }
 

@@ -3,7 +3,7 @@ import ApiService from "../BaseService";
 
 export async function getListUnit({
   page = 1,
-  pageSize = 10,
+  pageSize = 5,
   search = "",
 }: PaginationParams): Promise<IResponseApi> {
   const params = new URLSearchParams({
@@ -11,9 +11,11 @@ export async function getListUnit({
     pageSize: pageSize.toString(),
     search,
   });
-
+  // console.log(params);
+  
   try {
-    const { data } = await ApiService.request(`/units`, "GET");
+    const { data } = await ApiService.request(`/units?${params.toString()}`, "GET");
+    console.log(data);
 
     return data as IResponseApi;
   } catch (error) {
