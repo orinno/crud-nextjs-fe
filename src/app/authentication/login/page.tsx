@@ -94,3 +94,37 @@ const Login2 = () => {
     );
 };
 export default Login2;
+
+/*import {useState} from 'react';
+
+export default function Login(){
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch ('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username, password}),
+        });
+
+        const data = await response.json();
+        console.log(data);
+    }
+
+    return(
+        <form onSubmit={handleSubmit}>
+            <Stack direction="column"spacing={1} justifyContent="center" mt={3}>
+            <TextField type={email} label="email" value={email} onChange={(e) => setEmail(e.target.value)} fullWidth/>
+            <TextField type={password} label="password" value={password} onChange={(e) => setPassword(e.target.value)}  fullWidth/>
+            {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+            <Button type="submit" variant="contained" color="primary" fullWidth>Login</Button>
+        </Stack>
+        </form>
+    )
+}
+*/
